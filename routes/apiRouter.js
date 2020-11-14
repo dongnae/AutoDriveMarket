@@ -10,7 +10,7 @@ router.use((req, res, next) => {
 });
 
 router.get('/buy/', async (req, res) => {
-	console.log(req.query.buy);
+	//console.log(req.query.buy);
 	let list = JSON.parse(req.query.buy);
 	//console.log(list, req.body);
 	if (!Array.isArray(list)) {

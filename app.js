@@ -17,14 +17,16 @@ global.__conn = null;
 pool.getConnection().then(async (conn) => {
 	await conn.query("use contest");
 	global.__conn = conn;
-})
+});
 
 app.use((req, res, next) => {
 	res.header("Access-Control-Allow-Origin", "*");
 	res.header("Access-Control-Allow-Methods", "DELETE, POST, GET, OPTIONS")
 	res.header("Access-Control-Allow-Headers", "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With")
 	next();
-})
+});
+
+app.use('/', express.static("./public/dist/"));
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -35,10 +37,6 @@ global.__queue = [];
 const apiRouter = require("./routes/apiRouter");
 
 app.use('/api/', apiRouter);
-
-app.get('/', (req, res) => {
-	res.end('test');
-});
 
 app.use((req, res) => {
 	res.status(404).end('404');
